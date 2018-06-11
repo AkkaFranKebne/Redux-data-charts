@@ -13,7 +13,7 @@ export default class SearchBar extends Component {
 
   onFormSubmit(event){
     event.preventDefault();
-    //here will be data fetcher
+    //here will be data fetcher here
   }
 
   render(){
