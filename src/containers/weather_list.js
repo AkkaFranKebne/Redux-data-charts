@@ -1,29 +1,29 @@
+//containers are components that use data
+
 import React, { Component } from 'react';
 import { connect }  from 'react-redux';
 
+//import components that are used in this container
 import Chart from '../components/chart';
+import GoogleMaps from "../components/google_maps";
 
 
 class WeatherList extends Component {
+
+  //function that draws the weather
   renderWeather(cityData){
-    // data for sparkline library
+    // take data from ajax to use in sparkline
     const temp = cityData.list.map(weather => weather.main.temp);
     const pressure = cityData.list.map(weather => weather.main.pressure);
     const humidity = cityData.list.map(weather => weather.main.humidity);
+    const { lat, lon } = cityData.city.coord;
+    //use this data as params in Chart component:
     return(
       <tr key={ cityData.city.id  }>
-        <td >
-          { cityData.city.name }
-        </td>
-        <td >
-          <Chart data={temp} color="orange" units="K"/>
-        </td>
-        <td >
-          <Chart data={pressure} color="blue" units="hpa"/>
-        </td>
-        <td >
-          <Chart data={humidity} color="green" units="%"/>
-        </td>
+        <td ><GoogleMaps lon={lon} lat={lat}/></td>
+        <td ><Chart data={temp} color="orange" units="K"/></td>
+        <td ><Chart data={pressure} color="blue" units="hpa"/></td>
+        <td ><Chart data={humidity} color="green" units="%"/></td>
       </tr>
     );
   }
@@ -47,9 +47,9 @@ class WeatherList extends Component {
   }
 }
 
+//makes data from weather reducer avaliable as this container props
 function mapStateToProps({ weather }) {
   return { weather }; //{weather: weather}
 }
 
-//null in the first argument is about no app state here
 export default  connect(mapStateToProps)(WeatherList);

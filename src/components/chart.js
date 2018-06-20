@@ -1,3 +1,6 @@
+//chart is separated component as it is repeated in code several times
+//chart itself do not use data (just take it from the weather_list) so it is a component, not a  container
+
 import React from 'react';
 import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 import _ from 'lodash';
